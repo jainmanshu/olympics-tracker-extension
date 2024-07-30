@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Olympics Leaderboard",
+  "version": "1.0.0",
+  "description": "Leaderboard - Paris summer olympics 2024",
+  "permissions": ["alarms", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html"
+  }
+}
