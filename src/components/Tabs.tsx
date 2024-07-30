@@ -1,30 +1,32 @@
-import React, { ReactElement, useState } from "react";
-
 interface TabProps {
-  children: ReactElement[];
+  activeTab: "medals" | "leaderboard";
+  onTabChange: (tab: "medals" | "leaderboard") => void;
 }
 
-const Tabs = ({ children }: TabProps) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-
+const Tabs = ({ activeTab, onTabChange }: TabProps) => {
   return (
-    <div>
-      <div className="flex">
-        {React.Children.map(children, (child, index) => (
-          <button
-            className={`tablink ${activeTab === index ? "active" : ""}`}
-            onClick={() => setActiveTab(index)}
-          >
-            {(child as ReactElement).props.label}
-          </button>
-        ))}
-      </div>
-      <div>
-        {React.Children.map(children, (child, index) => (
-          <div className={`tabcontent ${activeTab === index ? "" : "hidden"}`}>
-            {child}
-          </div>
-        ))}
+    <div className="mb-4 flex justify-center">
+      <div className="inline-flex rounded-lg bg-gray-700">
+        <button
+          className={`py-2 px-4 text-sm font-medium text-center rounded-l-lg ${
+            activeTab === "medals"
+              ? "bg-yellow-600"
+              : "text-gray-300 hover:bg-gray-600"
+          }`}
+          onClick={() => onTabChange("medals")}
+        >
+          Medal Standings
+        </button>
+        <button
+          className={`py-2 px-4 text-sm font-medium text-center rounded-r-lg ${
+            activeTab === "leaderboard"
+              ? "bg-yellow-600"
+              : "text-gray-300 hover:bg-gray-600"
+          }`}
+          onClick={() => onTabChange("leaderboard")}
+        >
+          Leaderboard
+        </button>
       </div>
     </div>
   );

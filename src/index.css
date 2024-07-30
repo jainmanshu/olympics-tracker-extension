@@ -1,16 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Custom styles */
-.tablink {
-  @apply px-4 py-2 text-sm font-medium text-gray-600 bg-white border-b-2 border-gray-200;
-}
-
-.tablink.active {
-  @apply text-blue-600 border-blue-600;
-}
-
-.tabcontent {
-  @apply p-4 bg-white;
-}

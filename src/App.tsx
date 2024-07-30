@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Leaderboard from "./components/Leaderboard";
+import MedalStandings from "./components/MedalStandings";
 import Tabs from "./components/Tabs";
-import Top3 from "./components/Top3";
 import useFetchMedalData from "./hooks/useFetchMedalData";
 import { CountryData } from "./types/types";
 
 const App = () => {
+  const [activeTab, setActiveTab] = useState<"medals" | "leaderboard">(
+    "medals"
+  );
+
   const { data, loading, error } = useFetchMedalData();
   const [storedData, setStoredData] = useState<CountryData[]>([]);
 
@@ -25,17 +29,15 @@ const App = () => {
   const finalData = data.length ? data : storedData;
 
   return (
-    <div className="bg-gray-100 p-4">
-      <Tabs>
-        <div>
-          <h1>Top- 3</h1>
-          <Top3 data={finalData} />
-        </div>
-        <div>
-          <h1>Leaderboard</h1>
+    <div className="w-[500px] bg-gray-800 text-white">
+      <div className="text-white p-6 rounded-lg mx-4">
+        <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
+        {activeTab === "medals" ? (
+          <MedalStandings data={finalData} />
+        ) : (
           <Leaderboard data={finalData} />
-        </div>
-      </Tabs>
+        )}
+      </div>
     </div>
   );
 };
