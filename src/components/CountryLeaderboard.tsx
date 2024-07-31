@@ -87,6 +87,7 @@ const CountryLeaderboard = ({ data }: CountryLeaderboardProps) => {
           />
         )}
         <UnpinnedSection
+          showUnpinnedHeader={pinnedData.length > 0}
           unpinnedData={unpinnedData}
           expandedCountry={expandedCountry}
           toggleExpand={toggleExpand}

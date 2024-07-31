@@ -4,6 +4,7 @@ import CountryRow from "./CountryRow";
 interface UnpinnedSectionProps {
   unpinnedData: CountryData[];
   expandedCountry: string | null;
+  showUnpinnedHeader: boolean;
   toggleExpand: (description: string) => void;
   togglePinCountry: (description: string) => void;
 }
@@ -13,13 +14,16 @@ const UnpinnedSection = ({
   expandedCountry,
   toggleExpand,
   togglePinCountry,
+  showUnpinnedHeader = false,
 }: UnpinnedSectionProps) => (
   <>
-    <tr className="bg-gray-700 rounded-t-lg mt-2">
-      <td colSpan={6} className="py-2 px-4 text-gray-300 font-bold">
-        Other Countries
-      </td>
-    </tr>
+    {showUnpinnedHeader && (
+      <tr className="bg-gray-700 rounded-t-lg mt-2">
+        <td colSpan={6} className="py-2 px-4 text-gray-300 font-bold">
+          Other Countries
+        </td>
+      </tr>
+    )}
     {unpinnedData.map((country) => (
       <CountryRow
         key={country.description}
