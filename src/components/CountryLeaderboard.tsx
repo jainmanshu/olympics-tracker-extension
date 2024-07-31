@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { getFlag } from "../misc/getFlagByProtocolOrder";
-import { CountryData, Discipline } from "../types/types";
+import { useEffect, useState } from "react";
+import { CountryData } from "../types/types";
+import PinnedSection from "./PinnedSection";
+import UnpinnedSection from "./UnpinnedSection";
 
 interface CountryLeaderboardProps {
   data: CountryData[];
@@ -8,12 +9,49 @@ interface CountryLeaderboardProps {
 
 const CountryLeaderboard = ({ data }: CountryLeaderboardProps) => {
   const [expandedCountry, setExpandedCountry] = useState<string | null>(null);
+  const [pinnedCountries, setPinnedCountries] = useState<string[]>([]);
+  const [isPinnedCollapsed, setIsPinnedCollapsed] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof chrome !== "undefined" && chrome.storage) {
+      chrome.storage.local.get(["pinnedCountries"], (result) => {
+        if (result.pinnedCountries) {
+          setPinnedCountries(result.pinnedCountries);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof chrome !== "undefined" && chrome.storage) {
+      chrome.storage.local.set({ pinnedCountries });
+    }
+  }, [pinnedCountries]);
 
   const toggleExpand = (countryDescription: string) => {
     setExpandedCountry(
       expandedCountry === countryDescription ? null : countryDescription
     );
   };
+
+  const togglePinCountry = (countryDescription: string) => {
+    setPinnedCountries((prevState) =>
+      prevState.includes(countryDescription)
+        ? prevState.filter((country) => country !== countryDescription)
+        : [...prevState, countryDescription]
+    );
+  };
+
+  const togglePinnedCollapse = () => {
+    setIsPinnedCollapsed(!isPinnedCollapsed);
+  };
+
+  const pinnedData = data.filter((country) =>
+    pinnedCountries.includes(country.description)
+  );
+  const unpinnedData = data.filter(
+    (country) => !pinnedCountries.includes(country.description)
+  );
 
   return (
     <table className="w-full">
@@ -32,59 +70,28 @@ const CountryLeaderboard = ({ data }: CountryLeaderboardProps) => {
           <th className="w-10 py-2 text-center">
             <span className="sr-only">Total</span>🏅
           </th>
+          <th className="w-10 py-2 text-center">
+            <span className="sr-only">Pin</span>📌
+          </th>
         </tr>
       </thead>
       <tbody className="text-sm">
-        {data.map((country) => {
-          const totalMedals = country.medalsNumber.find(
-            (type) => type.type === "Total"
-          );
-          return (
-            <>
-              <tr
-                key={country.description}
-                className="border-t border-gray-700 text-white cursor-pointer"
-                onClick={() => toggleExpand(country.description)}
-              >
-                <td className="py-2 px-2 flex items-center">
-                  <span className="mr-3 text-gray-500">{country?.rank}</span>
-                  <div className="w-5 h-4 mr-2">
-                    {getFlag(country.protocolOrder)}
-                  </div>
-                  {country.description}
-                </td>
-                <td className="text-center py-2">{totalMedals?.gold || 0}</td>
-                <td className="text-center py-2">{totalMedals?.silver || 0}</td>
-                <td className="text-center py-2">{totalMedals?.bronze || 0}</td>
-                <td className="text-center py-2 font-bold">
-                  {totalMedals?.total || 0}
-                </td>
-              </tr>
-              {expandedCountry === country.description &&
-                country.disciplines.map(
-                  (discipline: Discipline, index: number) => (
-                    <tr key={index}>
-                      <td className="py-2 px-2 pl-10 text-xs">
-                        {discipline.name}
-                      </td>
-                      <td className="text-center py-2">
-                        {discipline.gold || 0}
-                      </td>
-                      <td className="text-center py-2">
-                        {discipline.silver || 0}
-                      </td>
-                      <td className="text-center py-2">
-                        {discipline.bronze || 0}
-                      </td>
-                      <td className="text-center py-2 font-bold">
-                        {discipline.total || 0}
-                      </td>
-                    </tr>
-                  )
-                )}
-            </>
-          );
-        })}
+        {pinnedData.length > 0 && (
+          <PinnedSection
+            pinnedData={pinnedData}
+            isPinnedCollapsed={isPinnedCollapsed}
+            togglePinnedCollapse={togglePinnedCollapse}
+            expandedCountry={expandedCountry}
+            toggleExpand={toggleExpand}
+            togglePinCountry={togglePinCountry}
+          />
+        )}
+        <UnpinnedSection
+          unpinnedData={unpinnedData}
+          expandedCountry={expandedCountry}
+          toggleExpand={toggleExpand}
+          togglePinCountry={togglePinCountry}
+        />
       </tbody>
     </table>
   );

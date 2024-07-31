@@ -3,6 +3,7 @@
   "name": "Paris Olympics 2024 Stats",
   "version": "1.0.0",
   "description": "Paris summer olympics 2024 Leaderboard/Medal Tracker",
+  "permissions": ["storage"],
   "action": {
     "default_popup": "index.html"
   },
