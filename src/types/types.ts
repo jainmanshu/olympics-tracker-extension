@@ -38,6 +38,7 @@ export interface CountryData {
   disciplines: Discipline[];
   medalsNumber: MedalNumbers[];
   rank: number;
+  protocolOrder: number;
 }
 
 export interface MedalStandings {

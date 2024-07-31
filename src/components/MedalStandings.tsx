@@ -1,3 +1,4 @@
+import { getFlag } from "../misc/getFlagByProtocolOrder";
 import { CountryData } from "../types/types";
 
 interface MedalStandingsProps {
@@ -43,6 +44,9 @@ const MedalStandings = ({ data }: MedalStandingsProps) => {
             : "order-1"
         }`}
       >
+        <div className="w-16 h-10 mb-2 text-5xl">
+          {getFlag(country.protocolOrder)}
+        </div>
         <div
           className={`${getBackgroundColor(country.rank)} ${getHeight(
             country.rank
