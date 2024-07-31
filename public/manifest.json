@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Paris Olympics 2024 Standings",
+  "name": "Paris Olympics 2024 Stats",
   "version": "1.0.0",
-  "description": "Leaderboard - Paris summer olympics 2024",
+  "description": "Paris summer olympics 2024 Leaderboard/Medal Tracker",
   "action": {
     "default_popup": "index.html"
   },
