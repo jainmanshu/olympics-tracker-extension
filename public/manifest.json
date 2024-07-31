@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Olympics Leaderboard",
+  "name": "Paris Olympics 2024 Standings",
   "version": "1.0.0",
   "description": "Leaderboard - Paris summer olympics 2024",
   "permissions": ["alarms", "storage"],
@@ -9,5 +9,12 @@
   },
   "action": {
     "default_popup": "index.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "icons": {
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
   }
 }

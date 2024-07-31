@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        comfortaa: ["Comfortaa", "cursive"],
+        inconsolata: ["Inconsolata", "monospace"],
+      },
+    },
   },
   plugins: [
     function ({ addUtilities }) {

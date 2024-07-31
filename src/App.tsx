@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Leaderboard from "./components/Leaderboard";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 import MedalStandings from "./components/MedalStandings";
 import Tabs from "./components/Tabs";
 import useFetchMedalData from "./hooks/useFetchMedalData";
@@ -23,8 +24,14 @@ const App = () => {
     }
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading)
+    return (
+      <div className="w-[500px] h-[300px] bg-gray-800 flex space-x-2 justify-center items-center">
+        <LoadingSkeleton />
+      </div>
+    );
+
+  if (error) return <div className="text-red-500 text-2xl">Error: {error}</div>;
 
   const finalData = data.length ? data : storedData;
 

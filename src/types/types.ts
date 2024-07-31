@@ -32,6 +32,12 @@ export interface MedalNumbers {
   total: number;
 }
 
+export interface EventInfo {
+  totalEvents: number;
+  dateTime: Date;
+  finishedEvents: number;
+}
+
 export interface CountryData {
   organisation: string;
   description: string;

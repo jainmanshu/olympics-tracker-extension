@@ -23,7 +23,7 @@ const useFetchMedalData = () => {
           });
         }
       } catch (error) {
-        setError("error");
+        setError("Something went wrong. Pleaase try again!");
       } finally {
         setLoading(false);
       }
