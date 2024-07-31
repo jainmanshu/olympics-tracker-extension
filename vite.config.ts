@@ -19,10 +19,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "./index.html",
-        background: "./background.js",
-      },
-      output: {
-        entryFileNames: "[name].js",
       },
     },
   },

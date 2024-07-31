@@ -3,10 +3,6 @@
   "name": "Paris Olympics 2024 Standings",
   "version": "1.0.0",
   "description": "Leaderboard - Paris summer olympics 2024",
-  "permissions": ["alarms", "storage"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
     "default_popup": "index.html"
   },

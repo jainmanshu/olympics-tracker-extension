@@ -17,11 +17,11 @@ const useFetchMedalData = () => {
         }
         const jsonData: MedalStandings = await response.json();
         setData(jsonData.medalStandings.medalsTable);
-        if (typeof chrome !== "undefined" && chrome.storage) {
-          chrome.storage.local.set({
-            medalData: jsonData.medalStandings.medalsTable,
-          });
-        }
+        // if (typeof chrome !== "undefined" && chrome.storage) {
+        //   chrome.storage.local.set({
+        //     medalData: jsonData.medalStandings.medalsTable,
+        //   });
+        // }
       } catch (error) {
         setError("Something went wrong. Pleaase try again!");
       } finally {
@@ -31,24 +31,24 @@ const useFetchMedalData = () => {
 
     fetchData();
 
-    if (
-      typeof chrome !== "undefined" &&
-      chrome.storage &&
-      chrome.storage.onChanged
-    ) {
-      const handleStorageChange = (changes: {
-        [key: string]: chrome.storage.StorageChange;
-      }) => {
-        if (changes.medalData) {
-          setData(changes.medalData.newValue);
-        }
-      };
-      chrome.storage.onChanged.addListener(handleStorageChange);
+    // if (
+    //   typeof chrome !== "undefined" &&
+    //   chrome.storage &&
+    //   chrome.storage.onChanged
+    // ) {
+    //   const handleStorageChange = (changes: {
+    //     [key: string]: chrome.storage.StorageChange;
+    //   }) => {
+    //     if (changes.medalData) {
+    //       setData(changes.medalData.newValue);
+    //     }
+    //   };
+    //   chrome.storage.onChanged.addListener(handleStorageChange);
 
-      return () => {
-        chrome.storage.onChanged.removeListener(handleStorageChange);
-      };
-    }
+    //   return () => {
+    //     chrome.storage.onChanged.removeListener(handleStorageChange);
+    //   };
+    // }
   }, []);
 
   return { data, loading, error };
