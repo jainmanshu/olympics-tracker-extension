@@ -9,16 +9,6 @@ const Tabs = ({ activeTab, onTabChange }: TabProps) => {
       <div className="inline-flex rounded-lg bg-gray-700">
         <button
           className={`py-2 px-4 text-sm font-medium text-center rounded-l-lg ${
-            activeTab === "medals"
-              ? "bg-yellow-600"
-              : "text-gray-300 hover:bg-gray-600"
-          }`}
-          onClick={() => onTabChange("medals")}
-        >
-          Medal Standings
-        </button>
-        <button
-          className={`py-2 px-4 text-sm font-medium text-center rounded-r-lg ${
             activeTab === "leaderboard"
               ? "bg-yellow-600"
               : "text-gray-300 hover:bg-gray-600"
@@ -26,6 +16,16 @@ const Tabs = ({ activeTab, onTabChange }: TabProps) => {
           onClick={() => onTabChange("leaderboard")}
         >
           Leaderboard
+        </button>
+        <button
+          className={`py-2 px-4 text-sm font-medium text-center rounded-r-lg ${
+            activeTab === "medals"
+              ? "bg-yellow-600"
+              : "text-gray-300 hover:bg-gray-600"
+          }`}
+          onClick={() => onTabChange("medals")}
+        >
+          Medal Standings
         </button>
       </div>
     </div>

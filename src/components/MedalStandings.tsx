@@ -50,10 +50,10 @@ const MedalStandings = ({ data }: MedalStandingsProps) => {
         <div
           className={`${getBackgroundColor(country.rank)} ${getHeight(
             country.rank
-          )} w-28 flex flex-col gap-1 items-center justify-evenly text-sm rounded-t-lg`}
+          )} w-32 flex flex-col gap-1 items-center justify-evenly text-sm rounded-t-lg`}
         >
           <div className="font-bold">{country.description}</div>
-          <div>
+          <div className="text-sm">
             🥇 {totalMedals?.gold || 0} 🥈 {totalMedals?.silver || 0} 🥉{" "}
             {totalMedals?.bronze || 0}
           </div>

@@ -7,7 +7,7 @@ import useFetchMedalData from "./hooks/useFetchMedalData";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState<"medals" | "leaderboard">(
-    "medals"
+    "leaderboard"
   );
 
   const { data, loading, error } = useFetchMedalData();
@@ -25,10 +25,10 @@ const App = () => {
     <div className="w-[500px] bg-gray-800 text-white">
       <div className="text-white p-6 rounded-lg mx-4">
         <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
-        {activeTab === "medals" ? (
-          <MedalStandings data={data} />
-        ) : (
+        {activeTab === "leaderboard" ? (
           <Leaderboard data={data} />
+        ) : (
+          <MedalStandings data={data} />
         )}
       </div>
     </div>
